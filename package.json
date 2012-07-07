@@ -1,0 +1,20 @@
+{
+  "name":        "hotlight-node",
+  "version":     "0.0.1",
+  "author":      "Jamsa Jones",
+  "keywords":    "krispy kreme hot light doughnuts",
+  "description": "A node module that will let you check to see when krispy kreme is making fresh doughnuts for your location.",
+  "licenses":     [{
+    "type":       "MIT",
+    "url":        "https://github.com/jamsajones/hotlight-node/raw/master/LICENSE"
+  }],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/jamsajones/hotlight-node.git"
+  },
+
+  "dependencies": {
+    "coffeescript": "latest",
+    "jasmine-node": "lateset"
+  }
+}
