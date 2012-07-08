@@ -14,7 +14,11 @@
   },
 
   "dependencies": {
-    "coffeescript": "latest",
-    "jasmine-node": "lateset"
+    "coffee-script": "latest",
+    "mocha":"latest",
+    "chai": "latest",
+    "request": "latest",
+    "querystring": "latest",
+    "fakeweb": "latest"
   }
 }
