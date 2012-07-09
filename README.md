@@ -1,4 +1,47 @@
 hotlight-node
 =============
 
-A node module for checking the Hot Light at Krispy Kreme locations
+Ever want to know when the Krispy Kerme hotlight is on in your area? Need to create a bot for your boss so he can run over and get his one vice?
+
+Enter hotlight-node
+
+Sample (in coffeescript)
+--------------
+```coffeescript
+Hotlight = require 'hotlight'
+
+hotlight = new Hotlight
+hotlight.on "hots", (locations) =>
+    console.log locations
+
+hotlight.get_hots {zipcode: '98116'}
+hotlight.get_hots {locations: '1115,1112'}
+```
+
+Installing
+--------------
+To install you only need to run ```npm install hotlight-node```
+
+The code
+--------------
+hotlight-node is written in coffeescript and intended to run in [node.js]http://nodejs.org
+
+Tests are written in [mocha]http://visionmedia.github.com/mocha/ and [chai]http://chaijs.com/. Test can be run by running ```cake spec``` or ```./run_tests``` in the root of the project
+
+Javascript version
+--------------
+If you like you can get a javascript version of the node-highlight by running ```cake compile```. The interface is the same.
+```javascript
+var Hotlight = require('holight');
+
+var hotlight = new Hotlight();
+hotlight.once('hots',functions(locations){
+    console.log(locations)
+})
+hotlight.get_hots({zipcode: '98116'})
+hotlight.get_hots({locations: '1115,1112'})
+```
+
+Contributing
+--------------
+If you would like to help me out please fork the code, make your improvements and submit a pull request.
