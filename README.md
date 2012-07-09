@@ -5,6 +5,9 @@ Ever want to know when the Krispy Kerme hotlight is on in your area? Need to cre
 
 Look no further!
 
+Note
+----------
+
 Synopsis
 --------------
 In coffeescript...
@@ -50,6 +53,13 @@ This idea comes directly from my boss who wanted a hubot script that would tell 
 
 He made a nice gem over at https://github.com/ssikora/hotlight and provided me with the URLs for talking to the hotlight server.
 
+Also, big thanks to Krispy Kreme and their technology department. Without them this app would not be possible. **Keep up the cool work.**
+
+Copyright and License
+-----------
+The software belongs to everyone! MIT License is [here](https://raw.github.com/jamsajones/hotlight-node/master/LICENSE).
+
+As for Kripy Kerme stuff. Well this app is not offically assosiated with Krispy Kreme or their partners or affilates. So, any and all Krispy Kreme copyrights and trademarks remain in tact.
 
 Todo
 -----------
