@@ -46,7 +46,7 @@ Thanks Scott
 -----------
 This idea comes directly from my boss who wanted a hubot script that would tell him if the Krispy Kreme hotlight was on.
 
-He made a gem over at https://github.com/ssikora/hotlight and provided me with the URLs for talking to the hotlight server.
+He made a nice gem over at https://github.com/ssikora/hotlight and provided me with the URLs for talking to the hotlight server.
 
 Contributing
 --------------
