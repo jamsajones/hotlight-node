@@ -5,8 +5,9 @@ Ever want to know when the Krispy Kerme hotlight is on in your area? Need to cre
 
 Look no further!
 
-Sample (in coffeescript)
+Synopsis
 --------------
+In coffeescript...
 ```coffeescript
 Hotlight = require 'hotlight'
 
@@ -17,20 +18,7 @@ hotlight.on "hots", (locations) =>
 hotlight.get_hots {zipcode: '98116'}
 hotlight.get_hots {locations: '1115,1112'}
 ```
-
-Installing
---------------
-To install you only need to run ```npm install hotlight-node```
-
-The code
---------------
-hotlight-node is written in coffeescript and intended to run in [node.js](http://nodejs.org)
-
-Tests are written in [mocha](http://visionmedia.github.com/mocha/) and [chai](http://chaijs.com/). Test can be run by running ```cake spec``` or ```./run_tests``` in the root of the project.
-
-Javascript version
---------------
-If you like you can get a javascript version of the node-highlight by running ```cake compile```. The interface is the same.
+And javascript...
 ```javascript
 var Hotlight = require('holight');
 
@@ -41,12 +29,31 @@ hotlight.once('hots',functions(locations){
 hotlight.get_hots({zipcode: '98116'})
 hotlight.get_hots({locations: '1115,1112'})
 ```
+[more...](https://github.com/jamsajones/hotlight-node/wiki)
+
+Installing
+--------------
+To install you only need to run ```npm install hotlight-node```
+
+The code
+--------------
+hotlight-node is written in coffeescript and intended to run in [node.js](http://nodejs.org). I haven't tested it in the broser.
+
+Testing
+-------------
+Tests are written in [mocha](http://visionmedia.github.com/mocha/) and [chai](http://chaijs.com/). Test can be run by running ```$ npm test``` in the root of the project.
+
 
 Thanks Scott
 -----------
 This idea comes directly from my boss who wanted a hubot script that would tell him if the Krispy Kreme hotlight was on.
 
 He made a nice gem over at https://github.com/ssikora/hotlight and provided me with the URLs for talking to the hotlight server.
+
+
+Todo
+-----------
+See [issues](https://github.com/jamsajones/hotlight-node/issues)
 
 Contributing
 --------------

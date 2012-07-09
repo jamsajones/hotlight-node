@@ -1,8 +1,9 @@
 {
-  "name":        "hotlight-node",
-  "version":     "0.0.1",
+  "name":        "hotlight",
+  "version":     "0.0.4",
+  "main":        "lib/hotlight.js",
   "author":      "Jamsa Jones",
-  "keywords":    "krispy kreme hot light doughnuts",
+  "keywords":    "Krispy Kreme Hotlight checker",
   "description": "A node module that will let you check to see when krispy kreme is making fresh doughnuts for your location.",
   "licenses":     [{
     "type":       "MIT",
@@ -12,12 +13,17 @@
     "type" : "git",
     "url" : "https://github.com/jamsajones/hotlight-node.git"
   },
-
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script -R spec specs",
+    "install": "coffee --compile --output lib/ src/"
+  },
   "dependencies": {
     "coffee-script": "latest",
-    "mocha":"latest",
-    "chai": "latest",
     "request": "latest",
     "querystring": "latest"
+  },
+  "devDependencies": {
+    "mocha":"latest",
+    "chai": "latest"
   }
 }
