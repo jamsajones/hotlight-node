@@ -3,7 +3,7 @@ hotlight-node
 
 Ever want to know when the Krispy Kerme hotlight is on in your area? Need to create a bot for your boss so he can run over and get his one vice?
 
-Enter hotlight-node
+Look no further!
 
 Sample (in coffeescript)
 --------------
