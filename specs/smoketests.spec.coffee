@@ -8,7 +8,10 @@ helpers = require './spec_helpers'
 # if thses tests are red then the world might be ending.
 describe "Hotlights URL Smoketest", ->
     @results = undefined
-
+    before (done)->
+      # Warm up the request... sometimes it fails on the first one.
+      helpers.do_krispy_request 'ListLocations', {zipcode:'98116'}, ->
+        done()
     describe "for ListLocations", ->
       before (done)->
         helpers.do_krispy_request('ListLocations', {zipcode:'98116'}, (res) =>
