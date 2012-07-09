@@ -1,38 +1,25 @@
 mocha = require 'mocha'
 expect = require('chai').expect
 request = require 'request'
+{assume, shared_behavior} = require './behaviors'
+helpers = require './spec_helpers'
 
 # These test will make sure that the service is working
 # if thses tests are red then the world might be ending.
 describe "Hotlights URL Smoketest", ->
-    results = undefined
+    @results = undefined
+
     describe "for ListLocations", ->
       before (done)->
-        req_data =
-          uri: "http://locations.krispykreme.com/Hotlight/ListLocations.ashx"
-          form: {zipcode:'98116'}
-
-        request.post req_data, (err,req,res) =>
-          results = JSON.parse(res)
-          done()
-      it "should be an object", ->
-        expect(results).to.be.an('object')
-
-      it "should have a success", ->
-        expect(results).to.have.property('data')
+        helpers.do_krispy_request('ListLocations', {zipcode:'98116'}, (res) =>
+          @results = res
+          done())
+      assume('results').behaves_like('a krispy response')
 
     describe "for HotLightStatus", ->
       before (done)->
-        req_data =
-          uri: "http://locations.krispykreme.com/Hotlight/HotLightStatus.ashx"
-          form: {locations:'1115'}
+        helpers.do_krispy_request('HotLightStatus', {locations:'1115'}, (res) ->
+          @results = res
+          done())
 
-        request.post req_data, (err,req,res) =>
-          results = JSON.parse(res)
-          done()
-
-      it "should be an object", ->
-        expect(results).to.be.an('object')
-
-      it "should have a success", ->
-        expect(results).to.have.property('data')
+      assume('results').behaves_like('a krispy response')

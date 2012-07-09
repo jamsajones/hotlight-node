@@ -1,128 +1,100 @@
+{EventEmitter} = require 'events'
 mocha = require 'mocha'
 expect = require('chai').expect
 request = require 'request'
+helpers = require './spec_helpers'
+{assume, shared_behavior} = require './behaviors'
 
 Hotlight = require '../src/hotlight'
 
-describe "Hotlight", ->
-  locations = undefined
-  hotlight = undefined
-  orginal_post = request.post
+orginal_post = request.post
 
+describe "Hotlight", ->
   before ->
+    # Fake the post call
     request.post = (opts, callback) ->
-      callback(undefined, undefined,
-        '{"total":2,"data":{"locations":[{"hotLightOn":1,"locationId":1115,"title":"Sodo","address":"1900 1st Avenue S","city":"Seattle","state":"WA","zipcode":"98134","phone":"206-625-1554","geoLocation":"47.590000,-122.330000","url":"http://kkre.me/olE5bi","storeHours1":"Sun-Thurs 5:30am-10:00pm","storeHours2":"Fri- Sat 5:30am-11:00pm"},{"hotLightOn":0,"locationId":1112,"title":"Spokane","address":"15401 East Indiana Avenue","city":"Spokane Valley","state":"WA","zipcode":"99216","phone":"509-922-7101","geoLocation":"47.670000,-117.200000","url":"http://kkre.me/rlxTfW","storeHours1":"Sun-Thurs 5:30am-11:00pm","storeHours2":"Fri-Sat 5:30am-12:00am"}]},"status":"success","message":null}')
+      callback(undefined, undefined, JSON.stringify(helpers.mock_data.location_response))
 
   after ->
     request.post = orginal_post
 
   beforeEach ->
-    hotlight = new Hotlight
+    @hotlight = new Hotlight
+
+  it "should be an event emitter", ->
+    expect(@hotlight).to.be.a.instanceof(EventEmitter)
 
   describe "#status", ->
-    describe "with zipcode", ->
-      describe "wating for callback", ->
+    describe "should call callback with locations", ->
+      describe "with zipcode", ->
         beforeEach (done) ->
-          hotlight.status {zipcode: '98116'}, (l) ->
-            locations = l
+          @hotlight.status {zipcode: '98116'}, (l) =>
+            @locations = l
             done()
 
-        it "should be an array", ->
-          expect(locations).to.be.instanceof(Array)
+        assume('locations').behaves_like("an array of locations with length", {len: 2})
 
-        it "should be have more than 0 locations", ->
-          expect(locations.length).to.be.equal(2)
-
-      describe "watching 'status' event", ->
+      describe "with location ids", ->
         beforeEach (done) ->
-          hotlight = new Hotlight
-          hotlight.on "status", (l) ->
-            locations = l
+          new Hotlight().status {locations: '1115,1112'}, (l) =>
+            @locations = l
             done()
 
-          hotlight.status {zipcode: '98116'}
+        assume('locations').behaves_like("an array of locations with length", {len: 2})
 
-        it "should be an array", ->
-          expect(locations).to.be.instanceof(Array)
-
-        it "should be have more than 0 locations", ->
-          expect(locations.length).to.be.equal(2)
-
-    describe "with location ids", ->
-      describe "wating for callback", ->
-        beforeEach (done) ->
-          hotlight = new Hotlight
-          hotlight.status {locations: '1115,1112'}, (l) ->
-            locations = l
+    describe "should fire when locations found", ->
+      describe "with zipcode", ->
+        beforeEach (done)->
+          @hotlight.once "status", (l) =>
+            @locations = l
             done()
+          @hotlight.status {zipcode: '98116'}
 
-        it "should be an array", ->
-          expect(locations).to.be.instanceof(Array)
+        assume('locations').behaves_like("an array of locations with length", {len: 2})
 
-        it "should be have more than 0 locations", ->
-          expect(locations.length).to.be.equal(2)
-
-      describe "watching for 'status' event", ->
-        beforeEach (done) ->
-          hotlight = new Hotlight
-          hotlight.on "status", (l) ->
-            locations = l
+      describe "with location ids", ->
+        beforeEach (done)->
+          @hotlight.once "status", (l) =>
+            @locations = l
             done()
+          @hotlight.status {locations: '1115,1112'}
 
-          hotlight.status {locations: '1115,1112'}
-
-        it "should be an array", ->
-          expect(locations).to.be.a.instanceof(Array)
-
-        it "should be have more than 0 locations", ->
-          expect(locations.length).to.be.equal(2)
+        assume('locations').behaves_like("an array of locations with length", {len: 2})
 
   describe "#get_hots", ->
-    describe "with zipcode", ->
-      describe "waiting for callback", ->
+    describe "should call callback with locations", ->
+      describe "with zipcode", ->
         beforeEach (done) ->
-          hotlight.get_hots {zipcode: '98116'}, (l) ->
-            locations = l
+          @hotlight.get_hots {zipcode: '98116'}, (l) =>
+            @locations = l
             done()
 
-        it "should be an array", ->
-          expect(locations).to.be.a.instanceof(Array)
-        it "should be above 0", ->
-          expect(locations.length).to.be.equal(1)
+        assume('locations').behaves_like("an array of locations with length", {len: 1})
 
-      describe "watching for 'hots' event", ->
+      describe "with location ids", ->
+        beforeEach (done) ->
+          @hotlight.get_hots {locations: '1115,1112'}, (l) =>
+            @locations = l
+            done()
+
+        assume('locations').behaves_like("an array of locations with length", {len: 1})
+
+    describe "should fire when locations found", ->
+      describe "with zipcode", ->
         beforeEach (done)->
-          hotlight.on "hots", (l) ->
-            locations = l
+          @hotlight.on "hots", (l) =>
+            @locations = l
             done()
+          @hotlight.get_hots {zipcode: '98116'}
 
-          hotlight.get_hots {zipcode: '98116'}
+        assume('locations').behaves_like("an array of locations with length", {len: 1})
 
-        it "should be an array", ->
-          expect(locations).to.be.a.instanceof(Array)
-        it "should be 1", ->
-          expect(locations.length).to.be.equal(1)
-
-    describe "with locations", ->
-      describe "waiting for callback", ->
+      describe "with location ids", ->
         beforeEach (done) ->
-          hotlight.get_hots {locations: '1115,1112'}, (l) ->
-            locations = l
+          @hotlight.on "hots", (l) =>
+            @locations = l
             done()
 
-        it "should be an array", ->
-          expect(locations).to.be.a.instanceof(Array)
-        it "should be above 0", ->
-          expect(locations.length).to.be.equal(1)
+          @hotlight.get_hots {locations: '1115,1112'}
 
-      describe "watching 'hots' event", ->
-        beforeEach (done) ->
-          hotlight.get_hots {locations: '1115,1112'}, (l) ->
-            locations = l
-            done()
-
-          it "should be an array", ->
-            expect(locations).to.be.a.instanceof(Array)
-          it "should be above 0", ->
-            expect(locations.length).to.be.equal(1)
+        assume('locations').behaves_like("an array of locations with length", {len: 1})
