@@ -18,7 +18,6 @@
     "mocha":"latest",
     "chai": "latest",
     "request": "latest",
-    "querystring": "latest",
-    "fakeweb": "latest"
+    "querystring": "latest"
   }
 }
