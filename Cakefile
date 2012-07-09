@@ -8,6 +8,6 @@ task 'compile', 'Compile src/*.coffee lib', ->
     console.log stdout + stderr
 
 task 'spec', 'Run spec tests', ->
-  exec 'node_modules/.bin/mocha --growl --compilers coffee:coffee-script specs', (err, stdout, stderr) ->
+  exec 'node_modules/.bin/mocha --compilers coffee:coffee-script -R spec specs', (err, stdout, stderr) ->
     throw err if err
     console.log stdout + stderr
