@@ -1,0 +1,6 @@
+.gitignore
+.npmignore
+
+README.md
+Cakefile
+specs
