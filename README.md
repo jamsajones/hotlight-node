@@ -42,6 +42,12 @@ hotlight.get_hots({zipcode: '98116'})
 hotlight.get_hots({locations: '1115,1112'})
 ```
 
+Thanks Scott
+-----------
+This idea comes directly from my boss who wanted a hubot script that would tell him if the Krispy Kreme hotlight was on.
+
+He made a gem over at https://github.com/ssikora/hotlight and provided me with the URLs for talking to the hotlight server.
+
 Contributing
 --------------
 If you would like to help me out please fork the code, make your improvements and submit a pull request.
