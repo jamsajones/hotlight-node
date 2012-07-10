@@ -1,4 +1,4 @@
-hotlight-node
+hotlight-node [![Build Status](https://secure.travis-ci.org/jamsajones/hotlight-node.png?branch=master)](http://travis-ci.org/jamsajones/hotlight-node)
 =============
 
 Ever want to know when the Krispy Kerme hotlight is on in your area? Need to create a bot for your boss so he can run over and get his one vice?
