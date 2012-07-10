@@ -5,9 +5,6 @@ Ever want to know when the Krispy Kerme hotlight is on in your area? Need to cre
 
 Look no further!
 
-Note
-----------
-
 Synopsis
 --------------
 In coffeescript...
