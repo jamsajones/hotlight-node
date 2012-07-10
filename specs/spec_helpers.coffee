@@ -2,6 +2,7 @@ mocha = require 'mocha'
 expect = require('chai').expect
 request = require 'request'
 {assume, shared_behavior} = require './behaviors'
+_ = require 'underscore'
 
 locations_property_names = [
   "locationId",
@@ -47,12 +48,9 @@ shared_behavior "a krispy response", (ivar)->
 shared_behavior "an array of locations", (ivar)->
   it "should be an array", ->
     expect(@[ivar]).to.be.instanceof(Array)
-
-
-  describe "fist element", ->
-    for property in locations_property_names
-      it "should have the property #{property}", ->
-        expect(@[ivar][0]).to.have.property(property)
+  it "elements should have location properties", ->
+    for location in @[ivar]
+      expect(location).to.contain.keys(locations_property_names)
 
 # Same as above but takes a len option to test length of the array.
 shared_behavior "an array of locations with length", (ivar, opts)->
@@ -61,4 +59,10 @@ shared_behavior "an array of locations with length", (ivar, opts)->
   it "should be have #{opts.len} locations", ->
     expect(@[ivar].length).to.be.equal(opts.len)
 
-
+# Make sure that the array is orderd by distance properties
+shared_behavior "an array orderd by property", (ivar, opts)->
+    prop = opts.property
+    it "should be orderd by #{prop} property", ->
+      sorted = _.clone(@[ivar])
+      sorted.sort((a,b)-> return parseFloat(a[prop]) - parseFloat(b[prop]))
+      expect(@[ivar]).to.eql(sorted)

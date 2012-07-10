@@ -3,6 +3,7 @@ mocha = require 'mocha'
 expect = require('chai').expect
 request = require 'request'
 helpers = require './spec_helpers'
+mock_data = require './mock_data'
 {assume, shared_behavior} = require './behaviors'
 
 Hotlight = require '../src/hotlight'
@@ -13,7 +14,10 @@ describe "Hotlight", ->
   before ->
     # Fake the post call
     request.post = (opts, callback) ->
-      callback(undefined, undefined, JSON.stringify(helpers.mock_data.location_response))
+      res = mock_data.zipcode()
+      if opts.form.locations?
+        res = mock_data.locations()
+      callback(undefined, undefined, JSON.stringify(res))
 
   after ->
     request.post = orginal_post
@@ -32,15 +36,16 @@ describe "Hotlight", ->
             @locations = l
             done()
 
-        assume('locations').behaves_like("an array of locations with length", {len: 2})
+        assume('locations').behaves_like("an array of locations with length", {len: 7})
+        assume('locations').behaves_like("an array orderd by property", { property: 'distance'})
 
       describe "with location ids", ->
         beforeEach (done) ->
-          new Hotlight().status {locations: '1115,1112'}, (l) =>
+          @hotlight.status {locations: '1115,1112'}, (l) =>
             @locations = l
             done()
 
-        assume('locations').behaves_like("an array of locations with length", {len: 2})
+        assume('locations').behaves_like("an array of locations with length", {len: 3})
 
     describe "should fire when locations found", ->
       describe "with zipcode", ->
@@ -50,7 +55,8 @@ describe "Hotlight", ->
             done()
           @hotlight.status {zipcode: '98116'}
 
-        assume('locations').behaves_like("an array of locations with length", {len: 2})
+        assume('locations').behaves_like("an array of locations with length", {len: 7})
+        assume('locations').behaves_like("an array orderd by property", { property: 'distance'})
 
       describe "with location ids", ->
         beforeEach (done)->
@@ -59,7 +65,7 @@ describe "Hotlight", ->
             done()
           @hotlight.status {locations: '1115,1112'}
 
-        assume('locations').behaves_like("an array of locations with length", {len: 2})
+        assume('locations').behaves_like("an array of locations with length", {len: 3})
 
   describe "#get_hots", ->
     describe "should call callback with locations", ->
@@ -69,7 +75,8 @@ describe "Hotlight", ->
             @locations = l
             done()
 
-        assume('locations').behaves_like("an array of locations with length", {len: 1})
+        assume('locations').behaves_like("an array of locations with length", {len: 3})
+        assume('locations').behaves_like("an array orderd by property", { property: 'distance'})
 
       describe "with location ids", ->
         beforeEach (done) ->
@@ -77,7 +84,7 @@ describe "Hotlight", ->
             @locations = l
             done()
 
-        assume('locations').behaves_like("an array of locations with length", {len: 1})
+        assume('locations').behaves_like("an array of locations with length", {len: 2})
 
     describe "should fire when locations found", ->
       describe "with zipcode", ->
@@ -87,7 +94,8 @@ describe "Hotlight", ->
             done()
           @hotlight.get_hots {zipcode: '98116'}
 
-        assume('locations').behaves_like("an array of locations with length", {len: 1})
+        assume('locations').behaves_like("an array of locations with length", {len: 3})
+        assume('locations').behaves_like("an array orderd by property", { property: 'distance'})
 
       describe "with location ids", ->
         beforeEach (done) ->
@@ -97,4 +105,4 @@ describe "Hotlight", ->
 
           @hotlight.get_hots {locations: '1115,1112'}
 
-        assume('locations').behaves_like("an array of locations with length", {len: 1})
+        assume('locations').behaves_like("an array of locations with length", {len: 2})
