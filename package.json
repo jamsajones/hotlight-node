@@ -1,6 +1,6 @@
 {
   "name":        "hotlight",
-  "version":     "0.0.4",
+  "version":     "1.0.0",
   "main":        "lib/hotlight.js",
   "author":      "Jamsa Jones",
   "keywords":    "Krispy Kreme Hotlight checker",
