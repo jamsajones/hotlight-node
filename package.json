@@ -2,8 +2,8 @@
   "name":        "hotlight",
   "version":     "1.0.0",
   "main":        "lib/hotlight.js",
-  "author":      "Jamsa Jones",
-  "keywords":    "Krispy Kreme Hotlight checker",
+  "author":      "James Straub",
+  "keywords":    ["Krispy", "Kreme", "Hotlight", "checker"],
   "description": "A node module that will let you check to see when krispy kreme is making fresh doughnuts for your location.",
   "licenses":     [{
     "type":       "MIT",

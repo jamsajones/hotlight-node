@@ -4,7 +4,6 @@ qs = require 'querystring'
 
 class Hotlight extends EventEmitter
   constructor: ()->
-    @watcher = undefined
 
   status: (params, callback) ->
     throw "You must have a zipcode or location ids" unless params.zipcode? or params.locations?
