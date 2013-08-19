@@ -1,6 +1,6 @@
 {
   "name":        "hotlight",
-  "version":     "1.0.0",
+  "version":     "1.0.1",
   "main":        "lib/hotlight.js",
   "author":      "James Straub",
   "keywords":    ["Krispy", "Kreme", "Hotlight", "checker"],
@@ -15,16 +15,17 @@
   },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script -R spec specs",
-    "install": "coffee --compile --output lib/ src/"
+    "prepublish": "coffee --compile --output lib/ src/"
   },
   "dependencies": {
-    "coffee-script": "latest",
-    "request": "latest",
-    "querystring": "latest"
+    "request": "2.27.x",
+    "querystring": "0.2.x"
   },
   "devDependencies": {
-    "mocha":"latest",
-    "chai": "latest",
-    "underscore": "latest"
+    "coffee-script": "1.6.x",
+    "mocha":"1.12.x",
+    "chai": "1.7.x",
+    "underscore": "1.5.x"
   }
-}
+} 
+
