@@ -41,7 +41,7 @@ hotlight-node is written in coffeescript and intended to run in [node.js](http:/
 
 Testing
 -------------
-Tests are written in [mocha](http://visionmedia.github.com/mocha/) and [chai](http://chaijs.com/). Test can be run by running ```$ npm test``` in the root of the project.
+Tests are written in [mocha](https://mochajs.org/) and [chai](http://chaijs.com/). Test can be run by running ```$ npm test``` in the root of the project.
 
 
 Thanks Scott
